@@ -1014,6 +1014,14 @@ curl -v -X POST \
                "type":"image/png"
             }
          }
+      },
+      "authentication":{
+         "protocol":"SAML2",
+         "issuer":{
+            "id":"0oa2x5jOopNCpswjo0g4",
+            "name":"Salesforce.com",
+            "uri":"exk2x5ixHmk9MBnqz0g4"
+         }
       }
    },
    "_links":{
@@ -1081,6 +1089,14 @@ curl -v -X POST \
                "href":"https://{yourOktaDomain}.com/assets/img/logos/salesforce_logo.dbd7e0b4de118a1dae1c39d60a3c30e5.png",
                "type":"image/png"
             }
+         }
+      },
+      "authentication":{
+         "protocol":"SAML2",
+         "issuer":{
+            "id":"0oa2x5jOopNCpswjo0g4",
+            "name":"Salesforce.com",
+            "uri":"exk2x5ixHmk9MBnqz0g4"
          }
       }
    },
@@ -1163,6 +1179,14 @@ User is assigned to an MFA Policy that requires enrollment during sign-on and mu
                "href":"https://{yourOktaDomain}.com/assets/img/logos/salesforce_logo.dbd7e0b4de118a1dae1c39d60a3c30e5.png",
                "type":"image/png"
             }
+         }
+      },
+      "authentication":{
+         "protocol":"SAML2",
+         "issuer":{
+            "id":"0oa2x5jOopNCpswjo0g4",
+            "name":"Salesforce.com",
+            "uri":"exk2x5ixHmk9MBnqz0g4"
          }
       }
    },
@@ -1278,6 +1302,14 @@ User is assigned to a Sign-On Policy or App Sign-On Policy that requires additio
                "type":"image/png"
             }
          }
+      },
+      "authentication":{
+         "protocol":"SAML2",
+         "issuer":{
+            "id":"0oa2x5jOopNCpswjo0g4",
+            "name":"Salesforce.com",
+            "uri":"exk2x5ixHmk9MBnqz0g4"
+         }
       }
    },
    "_links":{
@@ -1326,6 +1358,14 @@ User is assigned to a Sign-On Policy or App Sign-On Policy that requires additio
                "href":"https://{yourOktaDomain}.com/assets/img/logos/salesforce_logo.dbd7e0b4de118a1dae1c39d60a3c30e5.png",
                "type":"image/png"
             }
+         }
+      },
+      "authentication":{
+         "protocol":"SAML2",
+         "issuer":{
+            "id":"0oa2x5jOopNCpswjo0g4",
+            "name":"Salesforce.com",
+            "uri":"exk2x5ixHmk9MBnqz0g4"
          }
       }
    },
@@ -1408,6 +1448,14 @@ curl -v -X POST \
                "type":"image/png"
             }
          }
+      },
+      "authentication":{
+         "protocol":"SAML2",
+         "issuer":{
+            "id":"0oa2x5jOopNCpswjo0g4",
+            "name":"Salesforce.com",
+            "uri":"exk2x5ixHmk9MBnqz0g4"
+         }
       }
    },
    "_links":{
@@ -1477,6 +1525,14 @@ User is assigned to an MFA Policy that requires enrollment during sign-on and mu
                "href":"https://{yourOktaDomain}.com/assets/img/logos/salesforce_logo.dbd7e0b4de118a1dae1c39d60a3c30e5.png",
                "type":"image/png"
             }
+         }
+      },
+      "authentication":{
+         "protocol":"SAML2",
+         "issuer":{
+            "id":"0oa2x5jOopNCpswjo0g4",
+            "name":"Salesforce.com",
+            "uri":"exk2x5ixHmk9MBnqz0g4"
          }
       }
    },
@@ -1590,6 +1646,14 @@ User is assigned to a Sign-on Policy or App Sign-on Policy that requires additio
                "href":"https://{yourOktaDomain}.com/assets/img/logos/salesforce_logo.dbd7e0b4de118a1dae1c39d60a3c30e5.png",
                "type":"image/png"
             }
+         }
+      },
+      "authentication":{
+         "protocol":"SAML2",
+         "issuer":{
+            "id":"0oa2x5jOopNCpswjo0g4",
+            "name":"Salesforce.com",
+            "uri":"exk2x5ixHmk9MBnqz0g4"
          }
       }
    },
@@ -6481,7 +6545,15 @@ A subset of policy settings of the Sign-On Policy or App Sign-On Policy publishe
 }
 ~~~
 
-#### Target Object
+#### Recovery Question Object
+
+User's recovery question used for verification of a recovery transaction
+
+| Property          | Description                    | DataType | Nullable | Unique | Readonly |
+| ----------------- | ------------------------------ | -------- | -------- | ------ | -------- |
+| question          | User's recovery question | String   | FALSE    | TRUE   | TRUE     |
+
+### Target Object
 
 {% api_lifecycle ea %}
 Represents the target resource that user tried accessing. Typically this is the app that user is trying to sign-in.
@@ -6494,13 +6566,36 @@ Currently this is available only during [SP-initiated step-up authentication](#s
 | label     | Label of the target resource                                                                                                 | String   | FALSE    | FALSE  | TRUE     |
 | _links    | Discoverable resources for the target                                                                                        | [JSON HAL](http://tools.ietf.org/html/draft-kelly-json-hal-06) | TRUE     | FALSE  | TRUE     |
 
-#### Recovery Question Object
+### Authentication Object
 
-User's recovery question used for verification of a recovery transaction
+{% api_lifecycle ea %}
+Represents the authentication details that the target resource is using.
+Currently this is available only during [SP-initiated step-up authentication](#sp-initiated-step-up-authentication) and [IDP-initiated step-up authentication](#idp-initiated-step-up-authentication).
 
-| Property          | Description                    | DataType | Nullable | Unique | Readonly |
-| ----------------- | ------------------------------ | -------- | -------- | ------ | -------- |
-| question          | User's recovery question | String   | FALSE    | TRUE   | TRUE     |
+| Property  | Description                                                                                                                  | DataType | Nullable | Unique | Readonly |
+| --------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------| -------- | ------ | -------- |
+| protocol  | The protocol of authentication.                                                                                              | `SAML2`, `SAML1.1` or `WS-FED` | FALSE    | TRUE   | TRUE     |
+| issuer    | The issuer of the assertion.                                                                                                 | [Issuer Object](#issuer-object)| FALSE    | FALSE  | TRUE     |
+
+~~~json
+{
+  "protocol": "SAML2",
+  "issuer": {
+    "id": "0oa1zypkDcts6Vliw0g4",
+    "name": "Salesforce.com",
+    "uri": "exk2x5ixHmk9MBnqz0g4"
+  }
+}
+~~~
+
+#### Issuer Object
+The issuer that generates the assertion after the authentication finishes.
+
+| Property  | Description                                                                                                                  | DataType | Nullable | Unique | Readonly |
+| --------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------| -------- | ------ | -------- |
+| id        | Id of the issuer.                                                                                                            | String   | TRUE     | TRUE   | TRUE     |
+| name      | Name of the issuer.                                                                                                          | String   | FALSE    | FALSE  | TRUE     |
+| uri       | URI of the issuer.                                                                                                           | String   | FALSE    | FALSE  | TRUE     |
 
 ### Password Policy Object
 
